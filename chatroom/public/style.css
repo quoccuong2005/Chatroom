@@ -1,0 +1,231 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.app {
+    width: 100%;
+    height: 100vh;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.app>.screen {
+    display: none;
+}
+
+.app>.screen.active {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.screen .form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 400px;
+}
+
+.screen .form-input {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.screen h2 {
+    margin-bottom: 20px;
+    font-size: 30px;
+    color: #111;
+    border-bottom: 4px solid #555;
+    padding: 5px 0;
+    display: inline-block;
+}
+
+.screen .form-input label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
+}
+
+.screen .form-input input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.screen .form-input input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.screen .form-input button {
+    width: 100%;
+    padding: 12px 20px;
+    background: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.screen .form-input button:hover {
+    background: #0056b3;
+}
+
+.chat-screen .header {
+    background: #007bff;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.chat-screen .header .logo {
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+}
+
+#exit-chat {
+    padding: 8px 15px;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+#exit-chat:hover {
+    background: white;
+    color: #007bff;
+}
+
+.chat-screen .messages {
+    width: 100%;
+    height: calc(100% - 120px);
+    background: #f8f9fa;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.chat-screen .messages .message {
+    display: flex;
+    padding: 8px 0;
+    margin-bottom: 10px;
+}
+
+.chat-screen .messages .message>div {
+    max-width: 75%;
+    padding: 12px 15px;
+    border-radius: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-screen .messages .my-massage {
+    justify-content: flex-end;
+}
+
+.chat-screen .messages .my-massage>div {
+    background: #007bff;
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.chat-screen .messages .other-massage {
+    justify-content: flex-start;
+}
+
+.chat-screen .messages .other-massage>div {
+    background: #e9ecef;
+    color: #333;
+    border-bottom-left-radius: 5px;
+}
+
+.chat-screen .messages .message .name {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    opacity: 0.8;
+}
+
+.chat-screen .messages .message .text {
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.chat-screen .messages .update {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+    margin: 10px 0;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 8px;
+    border-radius: 15px;
+}
+
+.textbox {
+    height: 60px;
+    padding: 10px 15px;
+    background: white;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#message-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#message-input:focus {
+    border-color: #007bff;
+}
+
+#send-message {
+    padding: 12px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s;
+    font-weight: 500;
+}
+
+#send-message:hover {
+    background: #218838;
+}
