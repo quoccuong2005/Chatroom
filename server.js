@@ -6,8 +6,12 @@ const server = require("http").createServer(app);
 
 const io = require("socket.io")(server)
 
+app.use(express.static(path.join(__dirname, "/public")))
 
-app.use(express.static(path.join(__dirname + "/public")))
+// Route cho trang chủ
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'))
+})
 
 io.on("connection", (socket => {
     socket.on("newuser", (username) => {
@@ -21,4 +25,7 @@ io.on("connection", (socket => {
     })
 }))
 
-server.listen(5000)
+const PORT = process.env.PORT || 5000
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
