@@ -147,21 +147,24 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.chat-screen .messages .my-massage {
+.chat-screen .messages .my-message {
     justify-content: flex-end;
+    margin-left: auto;
+    display: flex;
 }
 
-.chat-screen .messages .my-massage>div {
+.chat-screen .messages .my-message>div {
     background: #007bff;
     color: white;
     border-bottom-right-radius: 5px;
+    margin-left: auto;
 }
 
-.chat-screen .messages .other-massage {
+.chat-screen .messages .other-message {
     justify-content: flex-start;
 }
 
-.chat-screen .messages .other-massage>div {
+.chat-screen .messages .other-message>div {
     background: #e9ecef;
     color: #333;
     border-bottom-left-radius: 5px;
