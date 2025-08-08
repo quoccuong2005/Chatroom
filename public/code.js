@@ -5,13 +5,20 @@ let uname;
 
 // Check login status when page loads
 window.addEventListener('DOMContentLoaded', async () => {
+    console.log("Page loaded, checking login status...");
     try {
-        const response = await fetch('/api/users/check-login');
+        const response = await fetch('/api/users/check-login', {
+            credentials: 'include' // Đảm bảo cookie được gửi kèm
+        });
         const result = await response.json();
+
+        console.log("Login check result:", result);
 
         if (result.success && result.isLoggedIn) {
             // User đã đăng nhập - chuyển thẳng vào chat
             uname = result.user.name;
+            console.log("User is logged in:", uname);
+
             app.querySelector(".join-screen").classList.remove("active");
             app.querySelector(".chat-screen").classList.add("active");
 
@@ -27,6 +34,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             console.log("Auto-logged in:", result.user);
         } else {
             // Chưa đăng nhập - hiển thị join screen
+            console.log("User not logged in, showing join screen");
             app.querySelector(".join-screen").classList.add("active");
             app.querySelector(".chat-screen").classList.remove("active");
         }
@@ -41,7 +49,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 // Hàm load messages từ database
 const loadMessages = async (room = 'general') => {
     try {
-        const response = await fetch(`/api/messages?room=${room}&limit=50`);
+        const response = await fetch(`/api/messages?room=${room}&limit=50`, {
+            credentials: 'include'
+        });
         const result = await response.json();
 
         if (result.success) {
@@ -120,6 +130,7 @@ app.querySelector(".join-screen #join-user").addEventListener("click", async (e)
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include', // Đảm bảo cookie được gửi/nhận
             body: JSON.stringify({
                 username: username,
                 password: password
@@ -148,6 +159,7 @@ app.querySelector(".join-screen #join-user").addEventListener("click", async (e)
                     await fetch('/api/messages/system', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
                         body: JSON.stringify({
                             content: `${username} has rejoined the chat`,
                             room: 'general'
@@ -168,6 +180,7 @@ app.querySelector(".join-screen #join-user").addEventListener("click", async (e)
                     await fetch('/api/messages/system', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
                         body: JSON.stringify({
                             content: `${username} joined the chat for the first time`,
                             room: 'general'
@@ -214,6 +227,7 @@ app.querySelector(".chat-screen #send-message").addEventListener("click", async 
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({
                 username: uname,
                 text: message,
@@ -248,7 +262,10 @@ app.querySelector(".chat-screen #send-message").addEventListener("click", async 
 app.querySelector(".chat-screen #exit-chat").addEventListener("click", async (e) => {
     try {
         // Xóa cookie token
-        await fetch('/api/users/logout', { method: 'POST' });
+        await fetch('/api/users/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
 
         socket.emit("exituser", uname);
         showToast("Logged out successfully!", 'info');
@@ -278,9 +295,11 @@ const renderMessage = (type, message) => {
         let el = document.createElement("div");
         el.setAttribute("class", "message my-message");
         el.innerHTML = `
-        <div>
-            <span class="username">You</span>
-            <span class="text">${message.text}</span>
+        <div class="message-wrapper">
+            <div class="username">You</div>
+            <div class="message-bubble">
+                <span class="text">${message.text}</span>
+            </div>
         </div>
         `
         messageContainer.appendChild(el);
@@ -288,9 +307,11 @@ const renderMessage = (type, message) => {
         let el = document.createElement("div");
         el.setAttribute("class", "message other-message");
         el.innerHTML = `
-        <div>
-            <span class="username">${message.username}</span>
-            <span class="text">${message.text}</span>
+        <div class="message-wrapper">
+            <div class="username">${message.username}</div>
+            <div class="message-bubble">
+                <span class="text">${message.text}</span>
+            </div>
         </div>
         `
         messageContainer.appendChild(el);

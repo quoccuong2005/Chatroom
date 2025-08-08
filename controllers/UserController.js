@@ -84,6 +84,13 @@ class UserController {
             const existingUser = await User.findOne({ name: username, password: password });
 
             if (existingUser) {
+                // Set cookie cho user đã tồn tại
+                res.cookie("tokenUser", existingUser.tokenUser, {
+                    httpOnly: true,
+                    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
+                    secure: false // Set true nếu dùng HTTPS
+                });
+
                 return res.status(200).json({
                     success: true,
                     message: "User already exists",
